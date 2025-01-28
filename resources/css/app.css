@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.link {
+    margin: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.link.active {
+    background-color: red;
+    color: white;
+}
