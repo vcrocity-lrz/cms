@@ -15,8 +15,8 @@ app.use(PrimeVue, {
         preset: Aura
     }
 });
-
-app.use(router);
+app.use(router.pinia);
+app.use(router.router);
 app.use(ToastService);
 
 app.mount('#app');
