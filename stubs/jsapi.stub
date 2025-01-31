@@ -1,0 +1,52 @@
+import axios from "axios";
+import { reactive } from "vue";
+
+export default function use{{ API }}(){
+    const {{ API }} = reactive({
+        status:null,
+        message:null,
+        data:null,
+        errors:null,
+        loading:null,
+    });
+
+    const {{ API }}Exec = async()=>{
+        clear{{ API }}();
+        {{ API }}.loading = true;
+        await axios({
+            url:'',
+        }).then((response)=>{
+            {{ API }}.loading = false;
+            {{ API }}.status = response.status;
+            if (response.data.data) {
+                {{ API }}.data = response.data.data;
+            }
+            if (response.data.message) {
+                {{ API }}.message = response.data.message;
+            }
+        }).catch((error)=>{
+            {{ API }}.loading = false;
+            {{ API }}.status = error.response.status;
+            if ({{ API }}.status === 401 || {{ API }}.status === 403 || {{ API }}.status === 419) {
+                window.location.reload();
+            }
+            if (error.response.data.errors) {
+                {{ API }}.errors = error.response.data.errors;
+            }
+            if (error.response.data.message) {
+                {{ API }}.message = error.response.data.message;
+            }
+        });
+    };
+
+    const clear{{ API }} = ()=>{
+        for (const key in {{ API }}) {
+            {{ API }}[key] = null;
+        }
+    };
+
+    return{
+        {{ API }},
+        {{ API }}Exec
+    };
+}
